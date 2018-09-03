@@ -10,7 +10,10 @@ import {
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  ContentChild
 } from '@angular/core';
 
 @Component({
@@ -25,6 +28,9 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
   @Input('srvElement') element: { type: string, name: string, content: string };
   @Input() name: string;
 
+  @ViewChild('heading') header: ElementRef;
+  @ContentChild('contentParagraph') paragraph: ElementRef;
+
   constructor() {
     console.log('Constructor Called')
   }
@@ -32,6 +38,7 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
   // Lifecycle hook - called once component is initialized
   ngOnInit() {
     console.log('ngOnInit Called');
+    //console.log(this.header.nativeElement.textContent);
   }
 
   // Called after a bound input property changes
@@ -48,6 +55,7 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
   // Called after content (ng-content) has been projected into view.
   ngAfterContentInit() {
     console.log('ngAfterContentInit');
+    console.log('Text content of paragraph: ', this.paragraph.nativeElement.textContent);
   }
 
   // Called every time the projected content has been checked
@@ -58,6 +66,7 @@ export class ServerElementComponent implements OnInit, OnChanges, DoCheck, After
   // Called after the component's view (and child views) has been initialized
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
+    console.log('Text ', this.header.nativeElement.textContent);
   }
 
   // Called every time the view (and child views) has been checked
